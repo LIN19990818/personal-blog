@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: personal-blog-backend
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true

@@ -1,0 +1,704 @@
+{
+  "document_info": {
+    "version": "v1.1.0",
+    "created_at": "2026-02-17",
+    "source_document": "需求完成度分析报告_v1.0.0.md",
+    "status": "待确认"
+  },
+  "priority_definition": {
+    "P0": {
+      "name": "紧急",
+      "description": "阻塞核心功能，影响用户基本使用体验，必须立即修复"
+    },
+    "P1": {
+      "name": "重要",
+      "description": "影响用户体验，功能不完整但可使用，应尽快完成"
+    },
+    "P2": {
+      "name": "增强",
+      "description": "提升用户体验，锦上添花的功能，可延后处理"
+    }
+  },
+  "phases": [
+    {
+      "phase_id": 1,
+      "phase_name": "紧急修复",
+      "target": "将已开发但未集成的功能快速接入系统，恢复完整的功能闭环",
+      "estimated_duration": "1-2天",
+      "acceptance_criteria": [
+        {
+          "item": "前台路由完整性",
+          "standard": "所有前台页面可通过URL直接访问"
+        },
+        {
+          "item": "后台菜单完整性",
+          "standard": "后台侧边栏显示所有管理模块入口"
+        },
+        {
+          "item": "音乐播放器可用性",
+          "standard": "前台任意页面可使用音乐播放器"
+        },
+        {
+          "item": "导航栏完整性",
+          "standard": "前台导航栏包含所有主要功能入口"
+        }
+      ],
+      "requirements": [
+        {
+          "req_id": "REQ-001",
+          "original_id": "FR-003-EXT",
+          "name": "人间足迹路由配置",
+          "priority": "P0",
+          "status": "代码已存在，路由未配置",
+          "dependencies": [],
+          "details": {
+            "display_position": "前台路由 /gallery",
+            "component_file": "pages/front/Gallery.tsx",
+            "navigation_entry": "前台导航栏添加'人间足迹'菜单项"
+          },
+          "acceptance_criteria": [
+            "访问 /gallery 可正常显示图片画廊页面",
+            "页面展示网格布局的图片列表",
+            "点击图片可弹出详情弹窗",
+            "页面顶部显示图片总数统计",
+            "导航栏'人间足迹'菜单项点击可跳转"
+          ]
+        },
+        {
+          "req_id": "REQ-002",
+          "original_id": "FR-005-EXT",
+          "name": "人生地图路由配置",
+          "priority": "P0",
+          "status": "代码已存在，路由未配置",
+          "dependencies": [],
+          "details": {
+            "display_position": "前台路由 /map",
+            "component_file": "pages/front/MapPage.tsx",
+            "navigation_entry": "前台导航栏添加'人生地图'菜单项"
+          },
+          "acceptance_criteria": [
+            "访问 /map 可正常显示地图页面",
+            "地图正确加载并显示中国区域",
+            "已添加的城市在地图上显示标记点",
+            "点击城市标记弹出信息窗口",
+            "导航栏'人生地图'菜单项点击可跳转"
+          ]
+        },
+        {
+          "req_id": "REQ-003",
+          "original_id": "FR-007-EXT2",
+          "name": "音乐播放器前台集成",
+          "priority": "P0",
+          "status": "组件已存在，未引入布局",
+          "dependencies": [],
+          "details": {
+            "display_position": "前台页面底部固定栏",
+            "component_file": "components/MusicPlayer.tsx",
+            "layout_requirement": "固定在页面底部，z-index为50"
+          },
+          "acceptance_criteria": [
+            "前台所有页面底部显示音乐播放器",
+            "播放器显示当前曲目信息（标题、歌手、封面）",
+            "播放/暂停按钮可正常切换",
+            "上一首/下一首按钮可正常切换曲目",
+            "音量滑块可调节音量",
+            "进度条可拖动调整播放位置",
+            "播放列表可展开/收起",
+            "播放列表支持曲目搜索"
+          ]
+        },
+        {
+          "req_id": "REQ-004",
+          "original_id": "BR-003-EXT",
+          "name": "后台图片管理集成",
+          "priority": "P0",
+          "status": "组件已存在，路由和菜单未配置",
+          "dependencies": [],
+          "details": {
+            "route_config": "/admin/images",
+            "component_file": "pages/admin/ImageManage.tsx",
+            "menu_position": "后台侧边栏'内容管理'分组下"
+          },
+          "acceptance_criteria": [
+            "访问 /admin/images 可正常显示图片管理页面",
+            "后台侧边栏显示'图片管理'菜单项",
+            "支持图片上传功能",
+            "支持图片删除功能",
+            "支持图片信息编辑（时间、地点、描述）",
+            "图片列表正确展示缩略图"
+          ]
+        },
+        {
+          "req_id": "REQ-005",
+          "original_id": "BR-003-EXT-2",
+          "name": "后台城市管理集成",
+          "priority": "P0",
+          "status": "组件已存在，路由和菜单未配置",
+          "dependencies": [],
+          "details": {
+            "route_config": "/admin/cities",
+            "component_file": "pages/admin/CityManage.tsx",
+            "menu_position": "后台侧边栏'内容管理'分组下"
+          },
+          "acceptance_criteria": [
+            "访问 /admin/cities 可正常显示城市管理页面",
+            "后台侧边栏显示'城市管理'菜单项",
+            "支持城市添加功能",
+            "支持城市编辑功能",
+            "支持城市删除功能（需二次确认）",
+            "城市列表正确展示城市信息"
+          ]
+        },
+        {
+          "req_id": "REQ-006",
+          "original_id": "BR-003-EXT-3",
+          "name": "后台音乐管理集成",
+          "priority": "P0",
+          "status": "组件已存在，路由和菜单未配置",
+          "dependencies": [],
+          "details": {
+            "route_config": "/admin/music",
+            "component_file": "pages/admin/MusicManage.tsx",
+            "menu_position": "后台侧边栏'内容管理'分组下"
+          },
+          "acceptance_criteria": [
+            "访问 /admin/music 可正常显示音乐管理页面",
+            "后台侧边栏显示'音乐管理'菜单项",
+            "支持音乐上传功能",
+            "支持音乐删除功能",
+            "支持音乐信息编辑（标题、歌手、封面）",
+            "音乐列表正确展示曲目信息"
+          ]
+        },
+        {
+          "req_id": "REQ-007",
+          "original_id": "FR-001-EXT",
+          "name": "前台导航栏扩展",
+          "priority": "P0",
+          "status": "导航项缺失",
+          "dependencies": ["REQ-001", "REQ-002", "REQ-003"],
+          "details": {
+            "display_position": "前台顶部导航栏",
+            "new_menu_items": [
+              {
+                "name": "人间足迹",
+                "action": "跳转 /gallery"
+              },
+              {
+                "name": "人生地图",
+                "action": "跳转 /map"
+              },
+              {
+                "name": "音乐播放",
+                "action": "展开/收起播放列表"
+              }
+            ],
+            "interaction_logic": [
+              "导航项按顺序排列：首页 → 人间足迹 → 人生地图 → 分类 → 标签 → 关于",
+              "当前页面导航项高亮显示",
+              "'音乐播放'为特殊项，点击展开播放列表而非跳转页面"
+            ]
+          },
+          "acceptance_criteria": [
+            "导航栏显示'人间足迹'菜单项",
+            "导航栏显示'人生地图'菜单项",
+            "导航栏显示'音乐播放'菜单项（带图标）",
+            "点击'人间足迹'跳转到图片画廊页",
+            "点击'人生地图'跳转到地图页",
+            "点击'音乐播放'展开播放列表",
+            "当前页面导航项高亮"
+          ]
+        }
+      ]
+    },
+    {
+      "phase_id": 2,
+      "phase_name": "核心补全",
+      "target": "补全影响核心用户体验的功能，完善系统主要功能闭环",
+      "estimated_duration": "3-5天",
+      "acceptance_criteria": [
+        {
+          "item": "首页完整性",
+          "standard": "首页包含主页大图、时间轴、网站介绍"
+        },
+        {
+          "item": "文章管理完整性",
+          "standard": "支持回收站恢复、归档查看"
+        },
+        {
+          "item": "数据可视化",
+          "standard": "访问统计以图表形式展示"
+        },
+        {
+          "item": "安全增强",
+          "standard": "登录失败限制、自动登出功能可用"
+        }
+      ],
+      "requirements": [
+        {
+          "req_id": "REQ-008",
+          "original_id": "FR-002",
+          "name": "首页主页大图",
+          "priority": "P1",
+          "status": "未实现",
+          "dependencies": ["REQ-009"],
+          "details": {
+            "display_position": "首页顶部，占据首屏主要区域",
+            "size_requirement": "宽度100%，高度400-600px（响应式）",
+            "image_source": "后台可配置上传",
+            "interaction_logic": [
+              "点击大图平滑滚动到时间轴区域",
+              "大图上叠加网站标题和简介文字",
+              "支持暗色遮罩以保证文字可读性"
+            ]
+          },
+          "acceptance_criteria": [
+            "首页顶部显示主页大图",
+            "大图高度适配不同屏幕尺寸",
+            "大图上显示网站标题和简介",
+            "点击大图平滑滚动到时间轴区域",
+            "后台支持上传/更换主页大图"
+          ]
+        },
+        {
+          "req_id": "REQ-009",
+          "original_id": "FR-002-EXT",
+          "name": "首页时间轴",
+          "priority": "P1",
+          "status": "完全缺失",
+          "dependencies": ["后端需新增Timeline实体和API"],
+          "details": {
+            "display_position": "首页主页大图下方",
+            "node_count": "默认展示最近10个节点，支持'查看更多'",
+            "node_info": {
+              "name": "节点名称（必填，限50字）",
+              "time": "时间（必填，年月格式）",
+              "description": "描述（选填，限200字）",
+              "image": "配图（选填，支持上传）"
+            },
+            "style_requirements": [
+              "采用垂直时间轴布局",
+              "奇数节点在左侧，偶数节点在右侧",
+              "时间轴中心线使用主题色",
+              "节点使用圆形标记，hover时放大",
+              "响应式：移动端改为单侧布局"
+            ],
+            "navigation_logic": [
+              "点击节点无跳转（仅展示信息）",
+              "如节点关联文章，显示'查看相关文章'链接"
+            ]
+          },
+          "acceptance_criteria": [
+            "时间轴正确展示在主页大图下方",
+            "时间节点按时间倒序排列",
+            "每个节点显示名称、时间、描述",
+            "节点配图正确显示",
+            "PC端左右交替布局正确",
+            "移动端单侧布局正确",
+            "后台支持时间轴节点的增删改"
+          ]
+        },
+        {
+          "req_id": "REQ-010",
+          "original_id": "FR-002-EXT2",
+          "name": "首页网站介绍",
+          "priority": "P1",
+          "status": "部分实现（仅有标题）",
+          "dependencies": [],
+          "details": {
+            "display_position": "主页大图上叠加或大图下方独立区域",
+            "content": {
+              "title": "博客标题（必填）",
+              "subtitle": "博客副标题/简介（选填，限100字）",
+              "introduction": "个人介绍（选填，限500字）"
+            },
+            "style_requirements": [
+              "文字居中显示",
+              "使用白色文字配暗色遮罩（在大图上时）",
+              "或使用独立卡片区域（在大图下方时）"
+            ]
+          },
+          "acceptance_criteria": [
+            "首页显示博客标题",
+            "首页显示博客副标题/简介",
+            "后台支持编辑网站介绍内容",
+            "文字样式美观可读"
+          ]
+        },
+        {
+          "req_id": "REQ-011",
+          "original_id": "BR-002-EXT2",
+          "name": "文章回收站",
+          "priority": "P1",
+          "status": "完全缺失",
+          "dependencies": ["后端需新增deletedAt字段"],
+          "details": {
+            "storage_rules": [
+              "删除文章时不物理删除，设置deletedAt字段",
+              "回收站保留期限：30天",
+              "超过30天自动物理删除"
+            ],
+            "restore_rules": [
+              "在回收站列表点击'恢复'按钮",
+              "恢复后清除deletedAt字段",
+              "恢复后文章状态保持删除前的状态"
+            ],
+            "cleanup_rules": [
+              "每日凌晨自动清理过期文章",
+              "手动'彻底删除'需二次确认",
+              "彻底删除后不可恢复"
+            ],
+            "ui_design": {
+              "location": "文章列表页新增'回收站'标签页",
+              "display_columns": "标题、删除时间、剩余天数",
+              "action_buttons": "恢复、彻底删除"
+            }
+          },
+          "acceptance_criteria": [
+            "删除文章进入回收站而非物理删除",
+            "回收站列表正确显示已删除文章",
+            "显示每篇文章的剩余保留天数",
+            "点击'恢复'可恢复文章",
+            "点击'彻底删除'需二次确认",
+            "超过30天的文章自动清理",
+            "回收站文章不显示在前台"
+          ]
+        },
+        {
+          "req_id": "REQ-012",
+          "original_id": "BR-003",
+          "name": "文章归档",
+          "priority": "P1",
+          "status": "完全缺失",
+          "dependencies": [],
+          "details": {
+            "display_position": "前台独立页面 /archive",
+            "archive_dimensions": [
+              "按年份分组（如2026年、2025年）",
+              "按月份分组（如2026年2月、2026年1月）"
+            ],
+            "display_content": [
+              "年份标题 + 该年文章数",
+              "月份标题 + 该月文章数",
+              "文章列表：标题、发布日期、分类"
+            ],
+            "interaction_logic": [
+              "默认展开最新年份",
+              "点击年份展开/收起该年月份",
+              "点击月份展开/收起该月文章",
+              "点击文章标题跳转详情页"
+            ]
+          },
+          "acceptance_criteria": [
+            "访问 /archive 显示归档页面",
+            "文章按年月正确分组",
+            "显示每个分组的文章数量",
+            "年份/月份可展开收起",
+            "点击文章标题可跳转详情",
+            "导航栏添加'归档'入口"
+          ]
+        },
+        {
+          "req_id": "REQ-013",
+          "original_id": "BR-005-EXT",
+          "name": "访问统计可视化",
+          "priority": "P1",
+          "status": "后端API已有，前端仅有基础数字",
+          "dependencies": [],
+          "details": {
+            "display_position": "后台仪表盘页面",
+            "chart_types": [
+              "折线图：近7天/30天访问趋势",
+              "柱状图：按月访问量对比",
+              "饼图：访问来源分布"
+            ],
+            "data_dimensions": [
+              "访问量（PV）",
+              "独立访客（UV）",
+              "页面浏览量",
+              "文章阅读量排名"
+            ],
+            "time_filter": ["今日", "近7天", "近30天", "自定义时间段"]
+          },
+          "acceptance_criteria": [
+            "仪表盘显示访问趋势折线图",
+            "支持切换时间维度（日/周/月）",
+            "显示热门文章排名",
+            "图表数据与后端API一致",
+            "图表支持hover显示详情"
+          ]
+        },
+        {
+          "req_id": "REQ-014",
+          "original_id": "BR-001-EXT",
+          "name": "登录安全增强",
+          "priority": "P1",
+          "status": "JWT已实现，缺少安全限制",
+          "dependencies": [],
+          "details": {
+            "login_failure_limit": [
+              "连续失败5次后锁定账户15分钟",
+              "显示剩余尝试次数",
+              "锁定期间显示解锁倒计时"
+            ],
+            "auto_logout": [
+              "Token有效期：24小时",
+              "无操作超时：2小时自动登出",
+              "登出前5分钟提示用户"
+            ],
+            "security_tips": [
+              "异常登录IP提醒",
+              "登录记录查询"
+            ]
+          },
+          "acceptance_criteria": [
+            "连续失败5次后账户锁定",
+            "锁定期间无法登录",
+            "15分钟后自动解锁",
+            "显示剩余尝试次数",
+            "无操作2小时自动登出",
+            "登出前有提示"
+          ]
+        }
+      ]
+    },
+    {
+      "phase_id": 3,
+      "phase_name": "增强功能",
+      "target": "提升用户体验，增加锦上添花的功能",
+      "estimated_duration": "2-3天",
+      "acceptance_criteria": [
+        {
+          "item": "分享功能",
+          "standard": "文章可分享到主流社交平台"
+        },
+        {
+          "item": "个性化设置",
+          "standard": "支持背景色、主题自定义"
+        },
+        {
+          "item": "写作辅助",
+          "standard": "写作模式、灵感收集可用"
+        },
+        {
+          "item": "数据备份",
+          "standard": "支持手动/自动备份"
+        }
+      ],
+      "requirements": [
+        {
+          "req_id": "REQ-015",
+          "original_id": "FR-004-EXT2",
+          "name": "文章分享功能",
+          "priority": "P2",
+          "status": "完全缺失",
+          "dependencies": [],
+          "details": {
+            "display_position": "文章详情页底部",
+            "share_platforms": [
+              "微信（生成二维码）",
+              "微博",
+              "QQ",
+              "复制链接"
+            ],
+            "share_content": ["文章标题", "文章摘要（前100字）", "文章链接"]
+          },
+          "acceptance_criteria": [
+            "文章详情页显示分享按钮组",
+            "点击微信显示二维码",
+            "点击微博跳转分享页面",
+            "点击QQ跳转分享页面",
+            "点击复制链接显示成功提示"
+          ]
+        },
+        {
+          "req_id": "REQ-016",
+          "original_id": "FR-006",
+          "name": "背景色/主题设置",
+          "priority": "P2",
+          "status": "完全缺失",
+          "dependencies": [],
+          "details": {
+            "preset_themes": ["默认白（当前）", "暗黑模式", "护眼绿", "暖色调"],
+            "custom_color": [
+              "颜色选择器选择主色调",
+              "系统自动生成配套的辅色调"
+            ],
+            "storage": ["保存到localStorage", "可选同步到用户配置"]
+          },
+          "acceptance_criteria": [
+            "设置页显示主题选择",
+            "预设主题可一键切换",
+            "自定义颜色选择器可用",
+            "切换主题实时生效",
+            "刷新页面主题保持"
+          ]
+        },
+        {
+          "req_id": "REQ-017",
+          "original_id": "FR-006-EXT",
+          "name": "主页大图上传",
+          "priority": "P2",
+          "status": "完全缺失",
+          "dependencies": ["REQ-008"],
+          "details": {
+            "upload_entry": "后台设置页",
+            "file_limits": {
+              "formats": ["jpg", "png", "webp"],
+              "max_size": "5MB",
+              "recommended_size": "1920x600以上"
+            },
+            "processing_logic": ["自动压缩优化", "自动裁剪适配", "显示上传进度"]
+          },
+          "acceptance_criteria": [
+            "后台设置页显示大图上传入口",
+            "支持拖拽上传",
+            "显示上传进度",
+            "上传后前台立即更新",
+            "文件格式和大小限制生效"
+          ]
+        },
+        {
+          "req_id": "REQ-018",
+          "original_id": "BR-004",
+          "name": "模板样式设置",
+          "priority": "P2",
+          "status": "完全缺失",
+          "dependencies": [],
+          "details": {
+            "font_settings": ["标题字体选择", "正文字体选择", "字号大小调整"],
+            "layout_settings": ["文章列表样式（列表/卡片）", "导航栏位置（顶部/侧边）", "内容区宽度"]
+          },
+          "acceptance_criteria": [
+            "设置页显示样式配置选项",
+            "字体切换实时预览",
+            "布局切换正确生效",
+            "配置保存后持久化"
+          ]
+        },
+        {
+          "req_id": "REQ-019",
+          "original_id": "BR-004-EXT",
+          "name": "快捷键设置",
+          "priority": "P2",
+          "status": "完全缺失",
+          "dependencies": [],
+          "details": {
+            "preset_shortcuts": [
+              "Ctrl+N：新建文章",
+              "Ctrl+S：保存文章",
+              "Ctrl+P：发布文章",
+              "Esc：退出编辑"
+            ],
+            "customization": ["可修改快捷键组合", "显示快捷键冲突提示"]
+          },
+          "acceptance_criteria": [
+            "后台页面支持快捷键操作",
+            "设置页显示快捷键列表",
+            "快捷键可自定义",
+            "冲突时显示提示"
+          ]
+        },
+        {
+          "req_id": "REQ-020",
+          "original_id": "BR-006",
+          "name": "写作模式",
+          "priority": "P2",
+          "status": "完全缺失",
+          "dependencies": [],
+          "details": {
+            "ui_simplification": ["隐藏侧边栏", "隐藏顶部导航", "编辑区域全屏", "暗色背景减少干扰"],
+            "auxiliary_functions": ["实时字数统计", "专注时间计时器", "打字机音效（可选）"],
+            "exit_methods": ["Esc键退出", "点击右上角退出按钮"]
+          },
+          "acceptance_criteria": [
+            "编辑器有'专注模式'入口",
+            "进入后界面简化",
+            "显示实时字数统计",
+            "显示专注时间计时",
+            "Esc键可退出"
+          ]
+        },
+        {
+          "req_id": "REQ-021",
+          "original_id": "BR-006-EXT",
+          "name": "灵感收集",
+          "priority": "P2",
+          "status": "后端API已有，前端缺失",
+          "dependencies": [],
+          "details": {
+            "inspiration_record": ["快速输入框（限200字）", "支持添加标签", "支持关联文章"],
+            "inspiration_management": ["列表展示所有灵感", "按标签筛选", "按时间排序", "搜索功能"],
+            "inspiration_usage": ["一键转为文章草稿", "在编辑器中插入灵感"]
+          },
+          "acceptance_criteria": [
+            "后台显示灵感管理入口",
+            "支持快速记录灵感",
+            "灵感列表正确展示",
+            "支持标签筛选",
+            "可将灵感转为文章草稿"
+          ]
+        },
+        {
+          "req_id": "REQ-022",
+          "original_id": "BR-005-EXT2",
+          "name": "本地备份",
+          "priority": "P2",
+          "status": "完全缺失",
+          "dependencies": [],
+          "details": {
+            "backup_content": ["所有文章（含草稿）", "所有图片", "系统设置", "分类和标签"],
+            "backup_methods": ["手动备份：点击按钮立即备份", "定时备份：每日凌晨自动备份"],
+            "backup_file": {
+              "format": "ZIP压缩包",
+              "naming": "backup_YYYYMMDD_HHMMSS.zip",
+              "storage": "服务器本地目录"
+            },
+            "backup_management": ["显示备份历史列表", "支持下载备份文件", "支持删除旧备份", "最多保留10个备份文件"]
+          },
+          "acceptance_criteria": [
+            "设置页显示备份功能入口",
+            "点击'立即备份'生成备份文件",
+            "显示备份历史列表",
+            "支持下载备份文件",
+            "定时备份正常执行",
+            "超过10个自动清理最旧备份"
+          ]
+        }
+      ]
+    }
+  ],
+  "dependency_graph": {
+    "phase_1": {
+      "independent": ["REQ-001", "REQ-002", "REQ-003", "REQ-004", "REQ-005", "REQ-006"],
+      "dependent": {
+        "REQ-007": ["REQ-001", "REQ-002", "REQ-003"]
+      }
+    },
+    "phase_2": {
+      "independent": ["REQ-010", "REQ-011", "REQ-012", "REQ-013", "REQ-014"],
+      "dependent": {
+        "REQ-008": ["REQ-009"]
+      }
+    },
+    "phase_3": {
+      "independent": ["REQ-015", "REQ-016", "REQ-018", "REQ-019", "REQ-020", "REQ-021", "REQ-022"],
+      "dependent": {
+        "REQ-017": ["REQ-008"]
+      }
+    }
+  },
+  "statistics": {
+    "total_requirements": 22,
+    "by_phase": {
+      "phase_1": 7,
+      "phase_2": 7,
+      "phase_3": 8
+    },
+    "by_priority": {
+      "P0": 7,
+      "P1": 7,
+      "P2": 8
+    }
+  }
+}

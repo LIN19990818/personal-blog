@@ -1,0 +1,196 @@
+{
+  "version": "1.0.0",
+  "project_name": "个人博客系统",
+  "created_date": "2025-02-15",
+  "status": "需求基线锁定",
+  "core_requirements": {
+    "positioning": {
+      "type": "个人内容创作与分享平台",
+      "target_audience": "特定受众群体",
+      "purpose": "记录个人经历、感悟与思考，选择性对外展示"
+    },
+    "deployment": {
+      "environment": "个人服务器",
+      "backend_required": true,
+      "api_required": true,
+      "ssl_required": true,
+      "cdn_required": false
+    },
+    "performance": {
+      "daily_visits": "100-500",
+      "loading_speed": "正常速度",
+      "concurrent_users": "低并发"
+    },
+    "storage": {
+      "image_storage": "本地服务器",
+      "music_storage": "本地服务器",
+      "backup_storage": "本地服务器",
+      "backup_method": "手动备份"
+    },
+    "features": {
+      "frontend": {
+        "navigation": true,
+        "home_timeline": true,
+        "photo_gallery": true,
+        "article_display": true,
+        "life_map": true,
+        "settings": true,
+        "music_player": true,
+        "search": true
+      },
+      "backend": {
+        "login": true,
+        "article_management": true,
+        "category_tag": true,
+        "content_organization": true,
+        "personalization": true,
+        "system_settings": true,
+        "writing_assistance": true
+      },
+      "interaction": {
+        "comments": false,
+        "comments_future_possibility": true,
+        "rss": false,
+        "email_notification": false,
+        "social_sharing": true
+      },
+      "seo": {
+        "seo_optimization": false,
+        "third_party_analytics": false
+      }
+    }
+  },
+  "functional_requirements": {
+    "frontend_modules": [
+      {
+        "id": "FR-001",
+        "name": "导航栏",
+        "description": "包含首页、人间足迹、心得感悟、人生地图、设置、音乐播放等导航项"
+      },
+      {
+        "id": "FR-002",
+        "name": "首页",
+        "description": "展示主页大图、网站介绍、时间轴展示个人发展历程"
+      },
+      {
+        "id": "FR-003",
+        "name": "人间足迹",
+        "description": "画廊形式展示图片，点击放大查看详情，实时显示图片总数"
+      },
+      {
+        "id": "FR-004",
+        "name": "心得感悟",
+        "description": "文章列表展示、详情页显示、分享功能"
+      },
+      {
+        "id": "FR-005",
+        "name": "人生地图",
+        "description": "中国地图展示、城市点亮、信息窗口、添加城市信息"
+      },
+      {
+        "id": "FR-006",
+        "name": "设置",
+        "description": "背景色选择、自定义颜色、上传主页大图"
+      },
+      {
+        "id": "FR-007",
+        "name": "音乐播放",
+        "description": "专辑图片、播放器控制、播放列表、搜索曲目"
+      },
+      {
+        "id": "FR-008",
+        "name": "搜索功能",
+        "description": "搜索文章标题、正文、图片描述"
+      }
+    ],
+    "backend_modules": [
+      {
+        "id": "BR-001",
+        "name": "登录功能",
+        "description": "账号密码登录，仅限博主进入后台"
+      },
+      {
+        "id": "BR-002",
+        "name": "文章管理",
+        "description": "分类与标签、编辑与删除、发布与草稿"
+      },
+      {
+        "id": "BR-003",
+        "name": "内容组织",
+        "description": "文章归档、图片管理"
+      },
+      {
+        "id": "BR-004",
+        "name": "个性化设置",
+        "description": "模板样式、快捷键设置"
+      },
+      {
+        "id": "BR-005",
+        "name": "系统设置",
+        "description": "SEO设置、访问统计、本地备份"
+      },
+      {
+        "id": "BR-006",
+        "name": "写作辅助",
+        "description": "写作模式、灵感收集"
+      }
+    ]
+  },
+  "non_functional_requirements": {
+    "design_style": {
+      "overall": "简洁、优雅",
+      "color_scheme": "色彩协调",
+      "typography": "字体清晰易读",
+      "layout": "页面布局合理，视觉层次分明，功能区域划分明确"
+    },
+    "compatibility": {
+      "desktop": "主流桌面浏览器",
+      "mobile": "常见移动设备浏览器",
+      "responsive": "不同屏幕尺寸下页面布局自适应"
+    },
+    "performance": {
+      "optimization": "压缩图片、脚本和样式文件，使用缓存机制，优化代码结构，提供加载提示"
+    },
+    "security": {
+      "sql_injection_prevention": true,
+      "xss_prevention": true,
+      "input_validation": true,
+      "data_encryption": "HTTPS加密",
+      "regular_security_check": true
+    }
+  },
+  "technical_constraints": {
+    "deployment": {
+      "environment": "个人服务器",
+      "backend_api": "必须提供后端API",
+      "ssl_certificate": "必须配置SSL证书"
+    },
+    "storage": {
+      "image_storage": "本地服务器存储",
+      "music_storage": "本地服务器存储",
+      "backup_storage": "本地服务器存储"
+    },
+    "performance": {
+      "daily_visits": "支持100-500日均访问量",
+      "loading_speed": "正常加载速度"
+    },
+    "security": {
+      "authentication": "必须实现安全的登录认证",
+      "data_protection": "防止SQL注入、XSS攻击",
+      "encryption": "数据传输必须使用HTTPS加密"
+    }
+  },
+  "future_considerations": {
+    "comments": "目前不需要评论功能，但保留未来扩展可能性",
+    "rss": "目前不需要RSS订阅功能",
+    "email_notification": "目前不需要邮件通知功能",
+    "seo": "对SEO没有特殊要求，不需要集成第三方统计分析工具"
+  },
+  "pending_requirements": [],
+  "notes": [
+    "此文档为最小化需求基线，包含已确认的核心需求",
+    "所有待补充需求已通过用户确认或标记为不需要",
+    "技术栈选择由架构师根据此基线进行评估和设计",
+    "后续需求变更需更新此文档并重新锁定版本"
+  ]
+}

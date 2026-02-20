@@ -1,0 +1,66 @@
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
+
+CREATE TABLE IF NOT EXISTS category (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  slug VARCHAR(50) NOT NULL,
+  description VARCHAR(200) DEFAULT NULL,
+  sort_order INT NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_slug (slug),
+  UNIQUE KEY uk_name (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS tag (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
+  slug VARCHAR(30) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_slug (slug),
+  UNIQUE KEY uk_name (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS article (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(200) NOT NULL,
+  slug VARCHAR(200) NOT NULL,
+  content LONGTEXT NOT NULL,
+  summary VARCHAR(500) DEFAULT NULL,
+  cover_image VARCHAR(500) DEFAULT NULL,
+  category_id BIGINT NOT NULL,
+  status TINYINT NOT NULL DEFAULT 0,
+  view_count INT NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  published_at DATETIME DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_slug (slug),
+  KEY idx_category_id (category_id),
+  KEY idx_status_published_at (status, published_at),
+  KEY idx_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS article_tag (
+  article_id BIGINT NOT NULL,
+  tag_id BIGINT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (article_id, tag_id),
+  KEY idx_tag_id (tag_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS admin (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  nickname VARCHAR(50) DEFAULT NULL,
+  avatar VARCHAR(500) DEFAULT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_username (username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO admin (username, password, nickname) VALUES ('admin', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iAt6Z5EH', 'Administrator') ON DUPLICATE KEY UPDATE username=username;

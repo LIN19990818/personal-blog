@@ -1,0 +1,16 @@
+-- Clear all data and reset
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE article_tag;
+TRUNCATE TABLE article;
+TRUNCATE TABLE category;
+TRUNCATE TABLE tag;
+TRUNCATE TABLE admin;
+TRUNCATE TABLE image;
+TRUNCATE TABLE city;
+TRUNCATE TABLE music;
+TRUNCATE TABLE system_setting;
+TRUNCATE TABLE visit_stat;
+TRUNCATE TABLE inspiration;
+
+SET FOREIGN_KEY_CHECKS = 1;

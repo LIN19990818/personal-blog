@@ -1,0 +1,20 @@
+package com.blog.dto.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class InspirationResponse {
+    
+    private Long id;
+    private String content;
+    private Long articleId;
+    private String category;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+}

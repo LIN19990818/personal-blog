@@ -1,0 +1,300 @@
+{
+  "document": {
+    "name": "个人技术博客PRD核心数据",
+    "version": "v1.0.0",
+    "createdAt": "2026-02-15",
+    "author": "Planner智能体",
+    "status": "待审核确认"
+  },
+  "project": {
+    "name": "个人技术博客",
+    "description": "用于发布技术文章、个人作品集的个人博客系统",
+    "targetUsers": ["博客作者（管理员）", "访客（读者）"],
+    "initialVersion": "v1.0.0"
+  },
+  "techStack": {
+    "frontend": {
+      "framework": "React",
+      "version": "18",
+      "language": "TypeScript"
+    },
+    "backend": {
+      "framework": "Spring Boot",
+      "version": "3.2",
+      "jdk": "17"
+    },
+    "database": {
+      "type": "MySQL",
+      "version": "8.0"
+    },
+    "deployment": {
+      "type": "Docker",
+      "requirement": "一键部署"
+    }
+  },
+  "modules": [
+    {
+      "id": "M01",
+      "name": "文章管理",
+      "priority": "P0",
+      "features": [
+        {"id": "M01-F01", "name": "文章发布", "description": "管理员可在后台发布新文章，支持Markdown格式、代码高亮、封面图上传"},
+        {"id": "M01-F02", "name": "文章编辑", "description": "管理员可编辑已发布的文章，支持实时预览"},
+        {"id": "M01-F03", "name": "文章下架", "description": "管理员可将文章下架（软删除），不物理删除"},
+        {"id": "M01-F04", "name": "文章列表", "description": "后台展示文章列表，支持按状态/分类/时间筛选"},
+        {"id": "M01-F05", "name": "文章详情", "description": "前台展示文章详情，支持代码高亮、目录导航"}
+      ]
+    },
+    {
+      "id": "M02",
+      "name": "分类管理",
+      "priority": "P0",
+      "features": [
+        {"id": "M02-F01", "name": "分类创建", "description": "管理员可创建文章分类，包含名称、描述、排序"},
+        {"id": "M02-F02", "name": "分类编辑", "description": "管理员可编辑分类信息"},
+        {"id": "M02-F03", "name": "分类删除", "description": "管理员可删除空分类（无文章关联）"},
+        {"id": "M02-F04", "name": "分类展示", "description": "前台展示分类列表及分类下文章"}
+      ]
+    },
+    {
+      "id": "M03",
+      "name": "标签管理",
+      "priority": "P0",
+      "features": [
+        {"id": "M03-F01", "name": "标签创建", "description": "管理员可创建标签"},
+        {"id": "M03-F02", "name": "标签编辑", "description": "管理员可编辑标签名称"},
+        {"id": "M03-F03", "name": "标签删除", "description": "管理员可删除标签，删除后文章关联自动解除"},
+        {"id": "M03-F04", "name": "标签展示", "description": "前台展示标签云及标签下文章"}
+      ]
+    },
+    {
+      "id": "M04",
+      "name": "文章搜索",
+      "priority": "P0",
+      "features": [
+        {"id": "M04-F01", "name": "关键词搜索", "description": "访客可输入关键词搜索文章（标题+内容）"},
+        {"id": "M04-F02", "name": "搜索结果展示", "description": "展示搜索结果列表，高亮关键词"}
+      ]
+    },
+    {
+      "id": "M05",
+      "name": "后台鉴权",
+      "priority": "P0",
+      "features": [
+        {"id": "M05-F01", "name": "管理员登录", "description": "管理员通过账号密码登录后台"},
+        {"id": "M05-F02", "name": "登录鉴权", "description": "后台接口必须有鉴权保护"},
+        {"id": "M05-F03", "name": "登录退出", "description": "管理员可安全退出登录"}
+      ]
+    },
+    {
+      "id": "M06",
+      "name": "响应式适配",
+      "priority": "P0",
+      "features": [
+        {"id": "M06-F01", "name": "PC端适配", "description": "页面适配桌面浏览器，分辨率≥1200px"},
+        {"id": "M06-F02", "name": "平板适配", "description": "页面适配平板设备，分辨率768px-1199px"},
+        {"id": "M06-F03", "name": "移动端适配", "description": "页面适配移动设备，分辨率<768px"}
+      ]
+    },
+    {
+      "id": "M07",
+      "name": "SEO优化",
+      "priority": "P0",
+      "features": [
+        {"id": "M07-F01", "name": "页面Meta标签", "description": "每个页面有独立的title/description/keywords"},
+        {"id": "M07-F02", "name": "URL优化", "description": "文章URL语义化，使用slug"},
+        {"id": "M07-F03", "name": "站点地图", "description": "生成sitemap.xml"}
+      ]
+    },
+    {
+      "id": "M08",
+      "name": "部署模块",
+      "priority": "P0",
+      "features": [
+        {"id": "M08-F01", "name": "Docker部署", "description": "提供Docker Compose一键部署方案"},
+        {"id": "M08-F02", "name": "环境配置", "description": "提供环境变量配置方式"}
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "name": "Article",
+      "description": "文章实体",
+      "fields": [
+        {"name": "id", "type": "BIGINT", "required": true, "description": "主键ID"},
+        {"name": "title", "type": "VARCHAR(200)", "required": true, "description": "文章标题"},
+        {"name": "slug", "type": "VARCHAR(200)", "required": true, "description": "URL别名（唯一）"},
+        {"name": "content", "type": "LONGTEXT", "required": true, "description": "文章内容（Markdown格式）"},
+        {"name": "summary", "type": "VARCHAR(500)", "required": false, "description": "文章摘要"},
+        {"name": "cover_image", "type": "VARCHAR(500)", "required": false, "description": "封面图URL"},
+        {"name": "category_id", "type": "BIGINT", "required": true, "description": "分类ID"},
+        {"name": "status", "type": "TINYINT", "required": true, "description": "状态：0-草稿 1-已发布 2-已下架"},
+        {"name": "view_count", "type": "INT", "required": true, "description": "浏览次数"},
+        {"name": "created_at", "type": "DATETIME", "required": true, "description": "创建时间"},
+        {"name": "updated_at", "type": "DATETIME", "required": true, "description": "更新时间"},
+        {"name": "published_at", "type": "DATETIME", "required": false, "description": "发布时间"}
+      ]
+    },
+    {
+      "name": "Category",
+      "description": "分类实体",
+      "fields": [
+        {"name": "id", "type": "BIGINT", "required": true, "description": "主键ID"},
+        {"name": "name", "type": "VARCHAR(50)", "required": true, "description": "分类名称"},
+        {"name": "slug", "type": "VARCHAR(50)", "required": true, "description": "URL别名（唯一）"},
+        {"name": "description", "type": "VARCHAR(200)", "required": false, "description": "分类描述"},
+        {"name": "sort_order", "type": "INT", "required": true, "description": "排序值"},
+        {"name": "created_at", "type": "DATETIME", "required": true, "description": "创建时间"}
+      ]
+    },
+    {
+      "name": "Tag",
+      "description": "标签实体",
+      "fields": [
+        {"name": "id", "type": "BIGINT", "required": true, "description": "主键ID"},
+        {"name": "name", "type": "VARCHAR(30)", "required": true, "description": "标签名称"},
+        {"name": "slug", "type": "VARCHAR(30)", "required": true, "description": "URL别名（唯一）"},
+        {"name": "created_at", "type": "DATETIME", "required": true, "description": "创建时间"}
+      ]
+    },
+    {
+      "name": "ArticleTag",
+      "description": "文章-标签关联实体",
+      "fields": [
+        {"name": "article_id", "type": "BIGINT", "required": true, "description": "文章ID"},
+        {"name": "tag_id", "type": "BIGINT", "required": true, "description": "标签ID"}
+      ]
+    },
+    {
+      "name": "Admin",
+      "description": "管理员实体",
+      "fields": [
+        {"name": "id", "type": "BIGINT", "required": true, "description": "主键ID"},
+        {"name": "username", "type": "VARCHAR(50)", "required": true, "description": "用户名（唯一）"},
+        {"name": "password", "type": "VARCHAR(100)", "required": true, "description": "密码（BCrypt加密）"},
+        {"name": "nickname", "type": "VARCHAR(50)", "required": false, "description": "昵称"},
+        {"name": "avatar", "type": "VARCHAR(500)", "required": false, "description": "头像URL"},
+        {"name": "created_at", "type": "DATETIME", "required": true, "description": "创建时间"}
+      ]
+    }
+  ],
+  "pages": {
+    "frontend": [
+      {"id": "F01", "name": "首页", "route": "/"},
+      {"id": "F02", "name": "文章详情页", "route": "/article/:slug"},
+      {"id": "F03", "name": "分类列表页", "route": "/category/:slug"},
+      {"id": "F04", "name": "标签列表页", "route": "/tag/:slug"},
+      {"id": "F05", "name": "搜索结果页", "route": "/search?q=keyword"},
+      {"id": "F06", "name": "关于页面", "route": "/about"}
+    ],
+    "backend": [
+      {"id": "B01", "name": "登录页", "route": "/admin/login"},
+      {"id": "B02", "name": "仪表盘", "route": "/admin/dashboard"},
+      {"id": "B03", "name": "文章列表", "route": "/admin/articles"},
+      {"id": "B04", "name": "文章编辑", "route": "/admin/articles/edit/:id"},
+      {"id": "B05", "name": "文章新建", "route": "/admin/articles/create"},
+      {"id": "B06", "name": "分类管理", "route": "/admin/categories"},
+      {"id": "B07", "name": "标签管理", "route": "/admin/tags"},
+      {"id": "B08", "name": "个人设置", "route": "/admin/settings"}
+    ]
+  },
+  "apis": {
+    "public": [
+      {"id": "API-001", "method": "GET", "path": "/api/articles", "description": "获取文章列表（分页）"},
+      {"id": "API-002", "method": "GET", "path": "/api/articles/:slug", "description": "获取文章详情"},
+      {"id": "API-003", "method": "GET", "path": "/api/categories", "description": "获取分类列表"},
+      {"id": "API-004", "method": "GET", "path": "/api/categories/:slug/articles", "description": "获取分类下文章"},
+      {"id": "API-005", "method": "GET", "path": "/api/tags", "description": "获取标签列表"},
+      {"id": "API-006", "method": "GET", "path": "/api/tags/:slug/articles", "description": "获取标签下文章"},
+      {"id": "API-007", "method": "GET", "path": "/api/search", "description": "搜索文章"},
+      {"id": "API-008", "method": "GET", "path": "/api/sitemap.xml", "description": "获取站点地图"}
+    ],
+    "admin": [
+      {"id": "API-101", "method": "POST", "path": "/api/admin/login", "description": "管理员登录"},
+      {"id": "API-102", "method": "POST", "path": "/api/admin/logout", "description": "管理员登出"},
+      {"id": "API-103", "method": "GET", "path": "/api/admin/profile", "description": "获取管理员信息"},
+      {"id": "API-104", "method": "PUT", "path": "/api/admin/profile", "description": "更新管理员信息"},
+      {"id": "API-105", "method": "GET", "path": "/api/admin/articles", "description": "获取文章列表（后台）"},
+      {"id": "API-106", "method": "POST", "path": "/api/admin/articles", "description": "创建文章"},
+      {"id": "API-107", "method": "PUT", "path": "/api/admin/articles/:id", "description": "更新文章"},
+      {"id": "API-108", "method": "PUT", "path": "/api/admin/articles/:id/status", "description": "更新文章状态"},
+      {"id": "API-109", "method": "DELETE", "path": "/api/admin/articles/:id", "description": "删除文章"},
+      {"id": "API-110", "method": "GET", "path": "/api/admin/categories", "description": "获取分类列表"},
+      {"id": "API-111", "method": "POST", "path": "/api/admin/categories", "description": "创建分类"},
+      {"id": "API-112", "method": "PUT", "path": "/api/admin/categories/:id", "description": "更新分类"},
+      {"id": "API-113", "method": "DELETE", "path": "/api/admin/categories/:id", "description": "删除分类"},
+      {"id": "API-114", "method": "GET", "path": "/api/admin/tags", "description": "获取标签列表"},
+      {"id": "API-115", "method": "POST", "path": "/api/admin/tags", "description": "创建标签"},
+      {"id": "API-116", "method": "PUT", "path": "/api/admin/tags/:id", "description": "更新标签"},
+      {"id": "API-117", "method": "DELETE", "path": "/api/admin/tags/:id", "description": "删除标签"},
+      {"id": "API-118", "method": "POST", "path": "/api/admin/upload", "description": "上传图片"}
+    ]
+  },
+  "nonFunctionalRequirements": {
+    "performance": [
+      {"metric": "接口响应时间", "requirement": "<300ms (P95)", "testMethod": "JMeter压测"},
+      {"metric": "首页首屏加载", "requirement": "<2s", "testMethod": "Lighthouse测试"},
+      {"metric": "并发能力", "requirement": "100 QPS", "testMethod": "压测验证"}
+    ],
+    "security": [
+      {"metric": "后台接口鉴权", "requirement": "必须鉴权，未登录返回401", "testMethod": "接口测试"},
+      {"metric": "密码存储", "requirement": "BCrypt加密存储", "testMethod": "数据库检查"},
+      {"metric": "SQL注入防护", "requirement": "无注入漏洞", "testMethod": "SQLMap扫描"},
+      {"metric": "XSS防护", "requirement": "无XSS漏洞", "testMethod": "安全扫描工具"}
+    ]
+  },
+  "acceptanceCriteria": {
+    "functional": [
+      {"module": "文章管理", "item": "文章发布", "criteria": "可成功发布文章，前台正确展示"},
+      {"module": "文章管理", "item": "文章编辑", "criteria": "可编辑已发布文章，修改生效"},
+      {"module": "文章管理", "item": "文章下架", "criteria": "下架后前台不可见，后台可查看"},
+      {"module": "分类管理", "item": "CRUD操作", "criteria": "创建/编辑/删除分类功能正常"},
+      {"module": "标签管理", "item": "CRUD操作", "criteria": "创建/编辑/删除标签功能正常"},
+      {"module": "文章搜索", "item": "关键词搜索", "criteria": "搜索结果正确，关键词高亮"},
+      {"module": "后台鉴权", "item": "登录/鉴权", "criteria": "未登录无法访问后台，登录后正常"},
+      {"module": "响应式", "item": "多端适配", "criteria": "PC/平板/移动端显示正常"},
+      {"module": "SEO", "item": "Meta标签", "criteria": "每个页面有独立title/description"},
+      {"module": "SEO", "item": "sitemap", "criteria": "可访问/sitemap.xml"},
+      {"module": "部署", "item": "Docker部署", "criteria": "docker-compose up可完成部署"}
+    ],
+    "performance": [
+      {"metric": "接口响应", "criteria": "P95 < 300ms", "testMethod": "JMeter压测100并发"},
+      {"metric": "首屏加载", "criteria": "< 2s", "testMethod": "Lighthouse测试"}
+    ],
+    "security": [
+      {"metric": "鉴权", "criteria": "未登录访问后台返回401", "testMethod": "接口测试"},
+      {"metric": "密码加密", "criteria": "数据库密码为BCrypt加密值", "testMethod": "数据库检查"}
+    ]
+  },
+  "excludedFeatures": [
+    {"name": "用户注册系统", "reason": "定位为个人博客，无需多用户"},
+    {"name": "评论系统", "reason": "v1.0.0聚焦核心内容管理"},
+    {"name": "文章点赞功能", "reason": "非核心功能"},
+    {"name": "浏览量统计", "reason": "非核心功能"},
+    {"name": "RSS订阅", "reason": "非核心功能"},
+    {"name": "社交分享", "reason": "非核心功能"},
+    {"name": "多语言支持", "reason": "定位为中文个人博客"},
+    {"name": "付费订阅", "reason": "非商业化项目"},
+    {"name": "广告系统", "reason": "非商业化项目"},
+    {"name": "消息通知系统", "reason": "无用户系统"},
+    {"name": "文章版本管理", "reason": "简化实现"},
+    {"name": "文章回收站", "reason": "下架即隐藏"},
+    {"name": "多管理员账号", "reason": "个人博客单管理员"},
+    {"name": "第三方登录", "reason": "无用户系统"},
+    {"name": "富文本编辑器", "reason": "已选定Markdown"}
+  ],
+  "risks": [
+    {"id": "R01", "description": "首屏加载<2s需前端优化", "level": "中", "solution": "架构设计时考虑代码分割、懒加载、CDN加速"},
+    {"id": "R02", "description": "图片存储方案需确定", "level": "中", "solution": "使用本地文件存储，Docker挂载volume持久化"},
+    {"id": "R03", "description": "Markdown渲染性能", "level": "低", "solution": "使用高性能Markdown库，考虑缓存渲染结果"},
+    {"id": "R04", "description": "SEO与SPA冲突", "level": "中", "solution": "考虑SSR或预渲染方案"},
+    {"id": "R05", "description": "单点故障风险", "level": "低", "solution": "个人博客可接受，后续可扩展高可用"}
+  ],
+  "decisions": [
+    {"item": "文章编辑器类型", "decision": "Markdown编辑器", "reason": "技术博客特性，代码展示友好"},
+    {"item": "代码高亮需求", "decision": "需要", "reason": "技术博客核心特性"},
+    {"item": "文章封面图", "decision": "需要", "reason": "提升视觉效果和SEO"},
+    {"item": "作品集展示方式", "decision": "作为文章分类", "reason": "简化实现，统一管理"},
+    {"item": "个人简介页面", "decision": "需要独立页面", "reason": "个人博客标配"}
+  ]
+}

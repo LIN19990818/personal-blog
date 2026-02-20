@@ -1,0 +1,100 @@
+-- 创建缺失的表
+SET NAMES utf8mb4;
+
+-- 创建文章-标签关联表
+CREATE TABLE IF NOT EXISTS article_tag (
+  article_id BIGINT NOT NULL,
+  tag_id BIGINT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (article_id, tag_id),
+  KEY idx_tag_id (tag_id),
+  CONSTRAINT fk_article_tag_article FOREIGN KEY (article_id) REFERENCES article (id) ON DELETE CASCADE,
+  CONSTRAINT fk_article_tag_tag FOREIGN KEY (tag_id) REFERENCES tag (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建图片表
+CREATE TABLE IF NOT EXISTS image (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  filename VARCHAR(255) NOT NULL,
+  url VARCHAR(500) NOT NULL,
+  location VARCHAR(100) DEFAULT NULL,
+  taken_at DATE DEFAULT NULL,
+  description TEXT DEFAULT NULL,
+  sort_order INT NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_sort_order (sort_order),
+  KEY idx_taken_at (taken_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建城市表
+CREATE TABLE IF NOT EXISTS city (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  latitude DECIMAL(10,8) NOT NULL,
+  longitude DECIMAL(11,8) NOT NULL,
+  visit_count INT NOT NULL DEFAULT 1,
+  first_visit DATE NOT NULL,
+  notes TEXT DEFAULT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_name (name),
+  KEY idx_location (latitude, longitude)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建音乐表
+CREATE TABLE IF NOT EXISTS music (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(200) NOT NULL,
+  artist VARCHAR(100) NOT NULL,
+  album VARCHAR(200) DEFAULT NULL,
+  duration INT NOT NULL,
+  url VARCHAR(500) NOT NULL,
+  cover_url VARCHAR(500) DEFAULT NULL,
+  sort_order INT NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_sort_order (sort_order)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建系统设置表
+CREATE TABLE IF NOT EXISTS system_setting (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  key_name VARCHAR(50) NOT NULL,
+  value TEXT NOT NULL,
+  description VARCHAR(255) DEFAULT NULL,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_key (key_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建访问统计表
+CREATE TABLE IF NOT EXISTS visit_stat (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  visit_date DATE NOT NULL,
+  page_views INT NOT NULL DEFAULT 0,
+  unique_visitors INT NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_visit_date (visit_date),
+  KEY idx_visit_date (visit_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建灵感表
+CREATE TABLE IF NOT EXISTS inspiration (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  content TEXT NOT NULL,
+  article_id BIGINT DEFAULT NULL,
+  category VARCHAR(50) DEFAULT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_article_id (article_id),
+  KEY idx_category (category),
+  KEY idx_created_at (created_at),
+  CONSTRAINT fk_inspiration_article FOREIGN KEY (article_id) REFERENCES article (id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

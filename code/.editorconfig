@@ -1,0 +1,60 @@
+# EditorConfig - 全局编码统一配置
+# https://editorconfig.org
+
+root = true
+
+# 所有文件的默认设置
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Java 文件
+[*.java]
+indent_style = space
+indent_size = 4
+
+# TypeScript/JavaScript 文件
+[*.{ts,tsx,js,jsx}]
+indent_style = space
+indent_size = 2
+
+# JSON 文件
+[*.json]
+indent_style = space
+indent_size = 2
+
+# YAML 文件
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# XML 文件
+[*.xml]
+indent_style = space
+indent_size = 4
+
+# SQL 文件
+[*.sql]
+indent_style = space
+indent_size = 4
+
+# HTML 文件
+[*.html]
+indent_style = space
+indent_size = 2
+
+# CSS 文件
+[*.{css,scss,less}]
+indent_style = space
+indent_size = 2
+
+# Markdown 文件
+[*.md]
+trim_trailing_whitespace = false
+
+# Shell 脚本
+[*.{sh,bat,ps1}]
+indent_style = space
+indent_size = 2
