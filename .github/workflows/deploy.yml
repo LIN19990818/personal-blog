@@ -1,0 +1,37 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT }}
+        script: |
+          cd /opt/blog
+          
+          echo "Pulling latest code..."
+          git pull origin main
+          
+          echo "Building and restarting services..."
+          docker-compose down
+          docker-compose build --no-cache
+          docker-compose up -d
+          
+          echo "Cleaning up unused images..."
+          docker image prune -f
+          
+          echo "Deployment completed!"

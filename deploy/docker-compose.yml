@@ -1,4 +1,20 @@
 services:
+  nginx:
+    image: nginx:alpine
+    container_name: blog-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - blog-network
+
   mysql:
     image: mysql:8.0
     container_name: blog-mysql
@@ -8,8 +24,6 @@ services:
       MYSQL_DATABASE: blog
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "13306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ../sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
@@ -38,8 +52,6 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
       UPLOAD_PATH: /app/uploads
-    ports:
-      - "18080:8080"
     depends_on:
       mysql:
         condition: service_healthy
@@ -54,8 +66,6 @@ services:
       dockerfile: Dockerfile
     container_name: blog-frontend
     restart: always
-    ports:
-      - "8888:80"
     depends_on:
       - backend
     volumes:
